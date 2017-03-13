@@ -47,6 +47,19 @@ _variable_convention_converter = {
     'sv1_mass_check': 'sv1_m_check',
     'sv1_efrc': 'sv1_efc',
     'sv1_sig3': 'sv1_sig3d',
+    'mu_dR': 'sm_dR',
+    'mu_d0': 'sm_mu_d0',
+    'mu_dR_check': 'sm_dR_check',
+    'mu_pTrel': 'sm_pTrel',
+    'mu_scatneighsignif': 'sm_scatneighsignif',
+    'mu_qOverPratio': 'sm_qOverPratio',
+    'mu_mombalsignif': 'sm_mombalsignif',
+    #'mu_smt': 'sm_smt',
+    'mu_dR': 'sm_dR',
+    'ptrw_grade_pb': 'rnnip_pb',
+    'ptrw_grade_pc': 'rnnip_pc',
+    'ptrw_grade_pu': 'rnnip_pu',
+    'ptrw_grade_ptau': 'rnnip_ptau'
     }
 
 _output_labeling_convention_converter = {
@@ -65,7 +78,8 @@ def _update_naming_convention(network):
         if variable_name in list(network['defaults'].keys()):
             if variable_name in list(_variable_convention_converter.keys()):
                 network['defaults'][_variable_convention_converter.get(variable_name)] = network['defaults'].get(variable_name)
-                del network['defaults'][variable_name]
+                if variable_name!=_variable_convention_converter.get(variable_name):
+                    del network['defaults'][variable_name]
 
     # replace 'input' 'name' string with the one used in Athena:
     for variable_itr, variable_item in enumerate(network.get('inputs')):
